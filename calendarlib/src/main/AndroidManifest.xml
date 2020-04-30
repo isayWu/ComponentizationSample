@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.isay.calendarlib">
+
+    <application>
+        <activity android:name=".CalendarActivity" />
+
+        <meta-data
+            android:name="com.isay.calendarlib.app.CalendarAppImpl"
+            android:value="ConfigModule"/>
+
+    </application>
+
+</manifest>

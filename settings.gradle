@@ -1,0 +1,5 @@
+rootProject.name='ComponentizationTest'
+include ':app'
+include ':calendarlib'
+include ':weatherlib'
+include ':commonlib'

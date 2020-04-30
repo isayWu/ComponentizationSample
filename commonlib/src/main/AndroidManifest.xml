@@ -1,0 +1,11 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.isay.commonlib">
+
+
+    <application>
+        <meta-data
+            android:name="com.isay.commonlib.app.CommonAppImpl"
+            android:value="ConfigModule" />
+    </application>
+
+</manifest>
