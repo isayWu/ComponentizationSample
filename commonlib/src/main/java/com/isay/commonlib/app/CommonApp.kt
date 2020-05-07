@@ -6,7 +6,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.isay.commonlib.BuildConfig
 
 /**
- * Desc:
+ * Desc: application代理实现类
  *
  *
  * Author: WuCongYi
@@ -18,7 +18,7 @@ import com.isay.commonlib.BuildConfig
  *
  * @author wucongyi
  */
-class CommonAppImpl : IApplicationDelegate {
+class CommonApp : IApplicationDelegate {
 
 
     companion object {

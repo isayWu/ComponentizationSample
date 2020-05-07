@@ -13,7 +13,7 @@
 
         <meta-data
             android:name="com.isay.componentizationtest.app.AppImpl"
-            android:value="ConfigModule"/>
+            android:value="ConfigModule" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".test.Test" />
     </application>
 
 </manifest>

@@ -2,10 +2,13 @@ package com.isay.calendarlib.app
 
 import android.app.Application
 import android.util.Log
+import com.isay.calendarlib.plug.CalendarPlugImpl
 import com.isay.commonlib.app.IApplicationDelegate
+import com.isay.commonserverlib.plug.IPlugRules
+import com.isay.commonserverlib.plug.PlugManager
 
 /**
- * Desc:
+ * Desc: 日历application代理实现类
  *
  *
  * Author: WuCongYi
@@ -17,7 +20,7 @@ import com.isay.commonlib.app.IApplicationDelegate
  *
  * @author wucongyi
  */
-class CalendarAppImpl : IApplicationDelegate{
+class CalendarApp : IApplicationDelegate {
 
     companion object {
         private const val TAG = ">>isay  CalendarAppImpl"
@@ -25,6 +28,9 @@ class CalendarAppImpl : IApplicationDelegate{
 
     override fun onCreate(application: Application?) {
         Log.d(TAG, "onCreate")
+
+        PlugManager.getInstance().addPlugRules(IPlugRules.CALENDAR_ID, CalendarPlugImpl())
+
     }
 
 

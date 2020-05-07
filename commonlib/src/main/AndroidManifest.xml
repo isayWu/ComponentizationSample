@@ -4,7 +4,7 @@
 
     <application>
         <meta-data
-            android:name="com.isay.commonlib.app.CommonAppImpl"
+            android:name="com.isay.commonlib.app.CommonApp"
             android:value="ConfigModule" />
     </application>
 

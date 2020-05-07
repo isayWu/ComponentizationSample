@@ -1,19 +1,26 @@
 package com.isay.componentizationtest
 
 import android.os.Bundle
+import android.view.View
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.alibaba.android.arouter.launcher.ARouter
-import com.isay.commonserverlib.constants.ARouterPathConstants
-import kotlinx.android.synthetic.main.activity_main.*
+import com.isay.commonserverlib.plug.PlugManager
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //点击跳转
-        app_jump_to_weather.setOnClickListener {
-            ARouter.getInstance().build(ARouterPathConstants.CALENDAR_HOME).navigation()
+        //初始化日历view
+        initCalendarView()
+    }
+
+    private fun initCalendarView() {
+        var calendarView: View? = PlugManager.getInstance().calendarPlugRules.getCalendarView(this)
+        if (calendarView != null) {
+            var layout: FrameLayout = findViewById<View>(R.id.app_calender_view) as FrameLayout
+            layout.addView(calendarView)
         }
     }
+
 }

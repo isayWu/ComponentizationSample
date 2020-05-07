@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.haibin.calendarview.CalendarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/calendarLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical"
-    app:calendar_content_view_id="@+id/recyclerView"
+    app:calendar_content_view_id="@+id/calendar_other_view"
     app:default_status="expand">
 
     <com.haibin.calendarview.CalendarView
@@ -43,23 +42,11 @@
 
 
     <LinearLayout
-        android:id="@+id/recyclerView"
+        android:id="@+id/calendar_other_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#e0e0e0"
         android:orientation="vertical" />
-    <!--        <com.haibin.calendarviewproject.group.GroupRecyclerView-->
-    <!--            android:id="@+id/recyclerView"-->
-    <!--            app:group_background="@color/content_background"-->
-    <!--            app:group_center="false"-->
-    <!--            app:group_height="42dp"-->
-    <!--            app:group_has_header="false"-->
-    <!--            app:group_padding_left="16dp"-->
-    <!--            app:group_padding_right="16dp"-->
-    <!--            app:group_text_size="14sp"-->
-    <!--            app:group_text_color="#555555"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:background="@color/content_background" />-->
+
 
 </com.haibin.calendarview.CalendarLayout>

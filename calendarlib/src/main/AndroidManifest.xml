@@ -6,7 +6,7 @@
         <activity android:name=".activity.CalendarActivity" />
 
         <meta-data
-            android:name="com.isay.calendarlib.app.CalendarAppImpl"
+            android:name="com.isay.calendarlib.app.CalendarApp"
             android:value="ConfigModule"/>
 
     </application>

@@ -3,9 +3,12 @@ package com.isay.weatherlib.app
 import android.app.Application
 import android.util.Log
 import com.isay.commonlib.app.IApplicationDelegate
+import com.isay.commonserverlib.plug.IPlugRules
+import com.isay.commonserverlib.plug.PlugManager
+import com.isay.weatherlib.plug.WeatherPlugImpl
 
 /**
- * Desc:
+ * Desc: application代理实现类
  *
  *
  * Author: WuCongYi
@@ -17,7 +20,7 @@ import com.isay.commonlib.app.IApplicationDelegate
  *
  * @author wucongyi
  */
-class WeatherAppImpl : IApplicationDelegate {
+class WeatherApp : IApplicationDelegate {
 
 
     companion object {
@@ -26,6 +29,8 @@ class WeatherAppImpl : IApplicationDelegate {
 
     override fun onCreate(application: Application?) {
         Log.d(TAG, "onCreate")
+
+        PlugManager.getInstance().addPlugRules(IPlugRules.WEATHER_ID, WeatherPlugImpl())
     }
 
 
