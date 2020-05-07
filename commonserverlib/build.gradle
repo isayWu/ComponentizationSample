@@ -12,27 +12,21 @@ android {
         versionCode 1
         versionName "1.0"
 
-        consumerProguardFiles 'common-rules.pro'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'serverlib-rules.pro'
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'common-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'serverlib-rules.pro'
         }
     }
-
-
 
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api 'androidx.appcompat:appcompat:1.1.0'
-    api 'androidx.recyclerview:recyclerview:1.0.0'
-    api 'androidx.constraintlayout:constraintlayout:1.1.3'
-    api 'com.alibaba:arouter-api:1.5.0'
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api 'androidx.core:core-ktx:1.2.0'
+    api project(path: ':commonlib')
 
 }

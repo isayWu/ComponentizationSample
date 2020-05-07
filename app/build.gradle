@@ -40,7 +40,7 @@ dependencies {
         implementation project(path: ':weatherlib')
     }
 
-    api project(path: ':commonlib')
+    api project(path: ':commonserverlib')
 
     kapt 'com.alibaba:arouter-compiler:1.2.2'
 }

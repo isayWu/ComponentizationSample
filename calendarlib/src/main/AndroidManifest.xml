@@ -3,7 +3,7 @@
     package="com.isay.calendarlib">
 
     <application>
-        <activity android:name=".CalendarActivity" />
+        <activity android:name=".activity.CalendarActivity" />
 
         <meta-data
             android:name="com.isay.calendarlib.app.CalendarAppImpl"
