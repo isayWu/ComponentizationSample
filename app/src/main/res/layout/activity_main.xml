@@ -4,20 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
-    <include
-        android:id="@+id/app_head_title"
-        layout="@layout/view_home_title" />
 
-    <FrameLayout
-        android:id="@+id/app_calender_view"
+    <com.isay.componentizationtest.ui.view.tab.BottomTabLayoutView
+        android:id="@+id/app_main_bottom_tab"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/app_main_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_head_title" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@+id/app_main_bottom_tab"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

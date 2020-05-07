@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.gyf.immersionbar.components.SimpleImmersionFragment;
+
 /**
  * Desc:
  * <p>
@@ -22,7 +24,7 @@ import androidx.annotation.Nullable;
  *
  * @author wucongyi
  */
-public class Test {
+public class Test  {
 
 
 }
