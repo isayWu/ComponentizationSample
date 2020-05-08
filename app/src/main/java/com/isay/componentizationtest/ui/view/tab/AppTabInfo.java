@@ -22,6 +22,13 @@ public class AppTabInfo {
         selectedDrawable = select;
     }
 
+    public AppTabInfo(String name, Drawable drawable) {
+        tabName = name;
+        tabTag = name;
+        norDrawable = drawable;
+        selectedDrawable = drawable;
+    }
+
     public String getTabTag() {
         return tabTag;
     }

@@ -10,19 +10,14 @@ import com.isay.commonserverlib.base.BaseActivity;
 import com.isay.componentizationtest.R;
 import com.isay.componentizationtest.ui.contract.MainContract;
 import com.isay.componentizationtest.ui.contract.MainPresenterImpl;
+import com.isay.componentizationtest.ui.view.tab.BottomTabLayoutView;
 
 public class TestActivity extends BaseActivity  {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-    }
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.activity_main;
     }
 
     @Override
@@ -32,7 +27,7 @@ public class TestActivity extends BaseActivity  {
 
     @Override
     protected void initView() {
-
+        ((BottomTabLayoutView)findViewById(R.id.app_main_bottom_tab)).setCurrentTab(0);
     }
 
 }

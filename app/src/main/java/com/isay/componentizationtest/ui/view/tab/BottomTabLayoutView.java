@@ -6,6 +6,11 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
@@ -21,6 +26,8 @@ public class BottomTabLayoutView extends LinearLayout {
 
     private OnTabSelectedListener mTabReselectedListener;
 
+    private ViewPager mViewPager;
+
     public BottomTabLayoutView(Context context) {
         this(context, null);
     }
@@ -35,36 +42,20 @@ public class BottomTabLayoutView extends LinearLayout {
 
 
     /**
-     * tab 点击回调接口
-     */
-    public interface OnTabSelectedListener {
-        void onTabWidgetSelected(int index);
-    }
-
-    /**
-     * 设置点击监听
-     *
-     * @param listener OnTabSelectedListener
-     */
-    public void setOnTabReselectedListener(OnTabSelectedListener listener) {
-        mTabReselectedListener = listener;
-    }
-
-    /**
      * 设置当前选中的tab
      *
      * @param index 下标
      */
-    public void setCurrentTab(int index) {
+    public BottomTabLayoutView setCurrentTab(int index) {
         if (index == mSelectedTabIndex) {
-            return;
+            return this;
         }
         if (mSelectedTabIndex < 0) {
             mSelectedTabIndex = 0;
         }
         AppTabView child = (AppTabView) this.getChildAt(mSelectedTabIndex);
         if (child == null) {
-            return;
+            return this;
         }
         // 改变tab的选中状态
         child.setSelectedStatus(false);
@@ -73,6 +64,32 @@ public class BottomTabLayoutView extends LinearLayout {
             currChild.setSelectedStatus(true);
         }
         mSelectedTabIndex = index;
+        return this;
+    }
+
+    /**
+     * 绑定viewPager
+     *
+     * @param viewPager
+     */
+    public void bindViewPager(ViewPager viewPager) {
+        mViewPager = viewPager;
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                setCurrentTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     /**
@@ -99,7 +116,7 @@ public class BottomTabLayoutView extends LinearLayout {
      * @param index 下标
      * @param info  AppTabInfo
      */
-    public void addTab(int index, AppTabInfo info) {
+    public BottomTabLayoutView addTab(int index, AppTabInfo info) {
         AppTabView tabView = new AppTabView(getContext(), info, index);
         tabView.setFocusable(true);
         tabView.setOnClickListener(v -> {
@@ -109,12 +126,32 @@ public class BottomTabLayoutView extends LinearLayout {
                 return;
             }
             setCurrentTab(index1);
+            if (mViewPager != null) {
+                mViewPager.setCurrentItem(index1);
+            }
             if (mTabReselectedListener != null) {
                 mTabReselectedListener.onTabWidgetSelected(index1);
             }
         });
         addView(tabView, new LayoutParams(0, MATCH_PARENT, 1));
+        return this;
     }
 
 
+    /**
+     * 设置点击监听
+     *
+     * @param listener OnTabSelectedListener
+     */
+    public void setOnTabReselectedListener(OnTabSelectedListener listener) {
+        mTabReselectedListener = listener;
+    }
+
+
+    /**
+     * tab 点击回调接口
+     */
+    public interface OnTabSelectedListener {
+        void onTabWidgetSelected(int index);
+    }
 }
