@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--24节气颜色-->
+    <color name="solarTermColor">#24A44F</color>
+    <!--今天的背景色-->
+    <color name="todayBgColor">#f0f0f0</color>
+    <!--节日的颜色-->
+    <color name="festivalColor">#D92B2B</color>
+
 </resources>

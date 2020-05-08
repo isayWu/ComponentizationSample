@@ -1,4 +1,4 @@
-package com.isay.componentizationtest.ui.view.tab;
+package com.isay.commonserverlib.view.tab;
 
 import android.graphics.drawable.Drawable;
 

@@ -1,16 +1,9 @@
 package com.isay.componentizationtest.test;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.widget.FrameLayout;
-
 import com.isay.commonlib.mvp.MvpPresenter;
 import com.isay.commonserverlib.base.BaseActivity;
 import com.isay.componentizationtest.R;
-import com.isay.componentizationtest.ui.contract.MainContract;
-import com.isay.componentizationtest.ui.contract.MainPresenterImpl;
-import com.isay.componentizationtest.ui.view.tab.BottomTabLayoutView;
+import com.isay.commonserverlib.view.tab.BottomTabLayoutView;
 
 public class TestActivity extends BaseActivity  {
 

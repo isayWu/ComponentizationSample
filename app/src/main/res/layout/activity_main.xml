@@ -7,7 +7,7 @@
     tools:context=".ui.MainActivity">
 
 
-    <com.isay.componentizationtest.ui.view.tab.BottomTabLayoutView
+    <com.isay.commonserverlib.view.tab.BottomTabLayoutView
         android:id="@+id/app_main_bottom_tab"
         android:layout_width="match_parent"
         android:layout_height="50dp"

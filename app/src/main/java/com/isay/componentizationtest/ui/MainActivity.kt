@@ -1,23 +1,17 @@
 package com.isay.componentizationtest.ui
 
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.gyf.immersionbar.ImmersionBar
-import com.gyf.immersionbar.ktx.immersionBar
 import com.isay.commonlib.ui.adapter.TabLayoutAdapter
 import com.isay.commonserverlib.base.BaseActivity
-import com.isay.commonserverlib.plug.PlugManager
 import com.isay.componentizationtest.R
 import com.isay.componentizationtest.ui.contract.MainContract
 import com.isay.componentizationtest.ui.contract.MainPresenterImpl
 import com.isay.componentizationtest.ui.fragment.HomeFragment
-import com.isay.componentizationtest.ui.view.tab.AppTabInfo
-import com.isay.componentizationtest.ui.view.tab.BottomTabLayoutView
+import com.isay.commonserverlib.view.tab.AppTabInfo
+import com.isay.commonserverlib.view.tab.BottomTabLayoutView
 
 /**
  * 主页
@@ -47,7 +41,7 @@ class MainActivity : BaseActivity<MainPresenterImpl?>(), MainContract.IView {
         viewPager.setOffscreenPageLimit(4)
         //bottom
         var homeTab =
-            AppTabInfo("首页", AppCompatResources.getDrawable(this, R.drawable.ic_tab_calendar))
+            AppTabInfo("日历", AppCompatResources.getDrawable(this, R.drawable.ic_tab_calendar))
         var weatherTab =
             AppTabInfo("天气", AppCompatResources.getDrawable(this, R.drawable.ic_tab_weather))
         var bottomTabView = (findViewById<View>(R.id.app_main_bottom_tab) as BottomTabLayoutView)

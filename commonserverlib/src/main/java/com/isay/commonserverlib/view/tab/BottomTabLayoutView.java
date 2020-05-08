@@ -1,4 +1,4 @@
-package com.isay.componentizationtest.ui.view.tab;
+package com.isay.commonserverlib.view.tab;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,9 +6,6 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import java.util.List;

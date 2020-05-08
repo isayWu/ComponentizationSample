@@ -1,4 +1,4 @@
-package com.isay.calendarlib.view;
+package com.isay.calendarlib.view.meizu;
 
 import android.content.Context;
 import android.graphics.Canvas;
