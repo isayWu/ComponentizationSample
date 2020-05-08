@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--周末颜色-->
+    <color name="weekEndColor">@color/colorAccent</color>
     <!--24节气颜色-->
     <color name="solarTermColor">#24A44F</color>
+    <!--农历节日的颜色-->
+    <color name="lunaFestivalColor">#24A44F</color>
+    <!--阳历节日的颜色-->
+    <color name="festivalColor">#F79000</color>
+    <!--农历文字默认颜色-->
+    <color name="lunarColor">#ff999999</color>
+    <!--阳历文字默认颜色-->
+    <color name="solarColor">#ff1c1c1c</color>
     <!--今天的背景色-->
-    <color name="todayBgColor">#f0f0f0</color>
-    <!--节日的颜色-->
-    <color name="festivalColor">#D92B2B</color>
-
+    <color name="todayBgColor">#f2f2f2</color>
 </resources>
