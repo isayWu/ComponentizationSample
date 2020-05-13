@@ -58,4 +58,7 @@ dependencies {
 
     //https://github.com/huanghaibin-dev/CalendarView
     implementation 'com.haibin:calendarview:3.6.9'
+
+    //https://github.com/greenrobot/EventBus
+    api 'org.greenrobot:eventbus:3.2.0'
 }

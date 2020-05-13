@@ -15,4 +15,12 @@
     <color name="solarColor">#ff1c1c1c</color>
     <!--今天的背景色-->
     <color name="todayBgColor">#f2f2f2</color>
+    <!--班文字颜色-->
+    <color name="workTvColor">#ffffff</color>
+    <!--班文字背景颜色-->
+    <color name="workBgColor">#E9B68C</color>
+    <!--休文字颜色-->
+    <color name="restTvColor">#ffffff</color>
+    <!--休文字背景颜色-->
+    <color name="restBgColor">#63C082</color>
 </resources>

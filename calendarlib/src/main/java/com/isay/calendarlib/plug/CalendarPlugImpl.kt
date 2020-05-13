@@ -1,9 +1,9 @@
 package com.isay.calendarlib.plug
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
-import com.isay.calendarlib.R
+import com.isay.calendarlib.view.calender.CalenderView
+import com.isay.commonserverlib.listener.CalendarDateChangeListener
 import com.isay.commonserverlib.plug.IPlugRulesCalendar
 
 /**
@@ -19,8 +19,17 @@ import com.isay.commonserverlib.plug.IPlugRulesCalendar
  */
 class CalendarPlugImpl : IPlugRulesCalendar {
 
-    override fun getCalendarView(content: Context): View? {
-        return LayoutInflater.from(content).inflate(R.layout.view_calendar, null)
+    /**
+     * 获取日历view
+     */
+    override fun getCalendarView(
+        context: Context?,
+        otherView: View?,
+        listener: CalendarDateChangeListener?
+    ): View {
+        var calendar = CalenderView(context)
+        calendar.setOtherView(otherView).setListener(listener)
+        return calendar
     }
 
 

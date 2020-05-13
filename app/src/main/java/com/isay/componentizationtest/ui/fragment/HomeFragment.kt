@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.isay.commonserverlib.base.BaseFragment
+import com.isay.commonserverlib.listener.CalendarDateChangeListener
 import com.isay.commonserverlib.plug.PlugManager
 import com.isay.componentizationtest.R
 import com.isay.componentizationtest.ui.contract.HomeContract
 import com.isay.componentizationtest.ui.contract.HomePresenterImpl
+import kotlinx.android.synthetic.main.view_home_title.*
 
 /**
  * Desc: 首页Fragment
@@ -40,20 +42,32 @@ class HomeFragment : BaseFragment<HomePresenterImpl?>(), HomeContract.IView {
     }
 
     override fun initView() {
-        //add日历view
-        var appCalenderLayout: FrameLayout =
-            mRootView.findViewById<View>(R.id.app_home_content_view) as FrameLayout
-        //找到日历view,并添加
-        var calendarView: View? = PlugManager.getInstance().calendarPlugRules.getCalendarView(context)
-        if (calendarView != null) {
-            appCalenderLayout.addView(calendarView)
-        }
         //添加其它view
-        var calendarOther: FrameLayout? =
-            appCalenderLayout.findViewWithTag<View>("calendar_other_view") as FrameLayout
-        if (calendarOther != null) {
-            var otherView: View = LayoutInflater.from(context).inflate(R.layout.view_home_other, null)
-            calendarOther.addView(otherView)
+        var contentView: View = LayoutInflater.from(context).inflate(R.layout.view_home_other, null)
+        //add日历view
+        var calenderLayout: FrameLayout =
+            mRootView.findViewById<View>(R.id.app_home_content_view) as FrameLayout
+        var calendarView: View? =
+            PlugManager.getInstance().calendarPlugRules.getCalendarView(
+                context,
+                contentView,
+                mCalendarDateChangeListener
+            )
+        if (calendarView != null) {
+            calenderLayout.addView(calendarView)
         }
     }
+
+    /**
+     * 期间变化回调监听
+     */
+    private val mCalendarDateChangeListener: CalendarDateChangeListener =
+        object : CalendarDateChangeListener {
+            override fun onMonthChange(year: Int, month: Int) {
+                app_home_head_tv_date.text = "$year 年 $month 月"
+            }
+
+            override fun onYearChange(year: Int) {}
+        }
+
 }

@@ -92,8 +92,8 @@ public class CustomMonthView extends MonthView {
         lunarColor = ContextCompat.getColor(context, R.color.lunarColor);
         sonarColor = ContextCompat.getColor(context, R.color.solarColor);
 
-
-        mTextPaint.setTextSize(dipToPx(context, 8));
+        //画标记的"班""休"颜色
+        mTextPaint.setTextSize(dipToPx(context, 12));
         mTextPaint.setColor(0xffffffff);
         mTextPaint.setAntiAlias(true);
         mTextPaint.setFakeBoldText(true);
@@ -123,7 +123,7 @@ public class CustomMonthView extends MonthView {
 
         mPadding = dipToPx(getContext(), 3);
 
-        mPointRadius = dipToPx(context, 2);
+        mPointRadius = dipToPx(context, 8);
 
         Paint.FontMetrics metrics = mSchemeBasicPaint.getFontMetrics();
         mSchemeBaseLine = mCircleRadius - metrics.descent + (metrics.bottom - metrics.top) / 2 + dipToPx(getContext(), 1);
@@ -149,13 +149,14 @@ public class CustomMonthView extends MonthView {
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     @Override
     protected void onDrawScheme(Canvas canvas, Calendar calendar, int x, int y) {
-        boolean isSelected = isSelected(calendar);
-        if (isSelected) {
-            mPointPaint.setColor(Color.WHITE);
-        } else {
-            mPointPaint.setColor(Color.GRAY);
-        }
-        canvas.drawCircle(x + mItemWidth / 2, y + mItemHeight - 3 * mPadding, mPointRadius, mPointPaint);
+        float tx = x + mItemWidth - mPadding - mCircleRadius;
+        float ty = y + mPadding + mSchemeBaseLine;
+        float tw = mTextPaint.measureText(calendar.getScheme()) / 2;
+        //画文字背景,这里y-2估计的，需要优化位置
+        mPointPaint.setColor(calendar.getSchemeColor());
+        canvas.drawCircle(tx + tw , ty - tw / 2 -2, mPointRadius, mPointPaint);
+        //画文字
+        canvas.drawText(calendar.getScheme(), tx, ty, mTextPaint);
     }
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")

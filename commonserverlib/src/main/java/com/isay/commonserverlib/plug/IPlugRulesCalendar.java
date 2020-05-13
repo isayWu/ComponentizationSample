@@ -3,6 +3,8 @@ package com.isay.commonserverlib.plug;
 import android.content.Context;
 import android.view.View;
 
+import com.isay.commonserverlib.listener.CalendarDateChangeListener;
+
 /**
  * Desc: 日历模板暴露的接口
  * <p>
@@ -20,7 +22,11 @@ public interface IPlugRulesCalendar extends IPlugRules {
     /**
      * 返回日历view
      *
+     * @param context
+     * @param otherView
+     * @param listener
      * @return
      */
-    View getCalendarView(Context context);
+    View getCalendarView(Context context, View otherView, CalendarDateChangeListener listener);
+
 }
