@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_home_head_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/calendar_lunar_tv_luna"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="五月初八"
+        android:textColor="@color/colorYellow"
+        android:textSize="@dimen/text30"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/calendar_lunar_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="第14周 周六"
+        android:textColor="#ff666666"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_lunar_tv_luna" />
+
+    <TextView
+        android:id="@+id/calendar_lunar_holiday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="·清明节 ·国庆节 ·三九第一天"
+        android:textColor="#ff999999"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_lunar_week" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

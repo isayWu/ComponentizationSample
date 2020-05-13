@@ -1,4 +1,4 @@
-package com.isay.calendarlib.view.custom;
+package com.isay.calendarlib.view.calender.custom;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,16 +9,15 @@ import android.text.TextUtils;
 import androidx.core.content.ContextCompat;
 
 import com.haibin.calendarview.Calendar;
-import com.haibin.calendarview.WeekView;
+import com.haibin.calendarview.MonthView;
 import com.isay.calendarlib.R;
 
 /**
- * 演示一个变态需求的周视图
+ * 演示一个变态需求的月视图
  * Created by huanghaibin on 2018/2/9.
  */
 
-public class CustomWeekView extends WeekView {
-
+public class CustomMonthView extends MonthView {
 
     private int mRadius;
 
@@ -43,7 +42,6 @@ public class CustomWeekView extends WeekView {
      */
     private Paint mCurrentDayPaint = new Paint();
 
-
     /**
      * 圆点半径
      */
@@ -58,7 +56,6 @@ public class CustomWeekView extends WeekView {
     private Paint mSchemeBasicPaint = new Paint();
 
     private float mSchemeBaseLine;
-
 
     /**
      * 周末日期颜色
@@ -85,7 +82,8 @@ public class CustomWeekView extends WeekView {
      */
     private int sonarColor = 0xff333333;
 
-    public CustomWeekView(Context context) {
+
+    public CustomMonthView(Context context) {
         super(context);
         weekEndColor = ContextCompat.getColor(context, R.color.colorAccent);
         solarTermColor = ContextCompat.getColor(context, R.color.solarTermColor);
@@ -94,13 +92,14 @@ public class CustomWeekView extends WeekView {
         lunarColor = ContextCompat.getColor(context, R.color.lunarColor);
         sonarColor = ContextCompat.getColor(context, R.color.solarColor);
 
+        //画标记的"班""休"颜色
         mTextPaint.setTextSize(dipToPx(context, 12));
         mTextPaint.setColor(0xffffffff);
         mTextPaint.setAntiAlias(true);
         mTextPaint.setFakeBoldText(true);
 
-
-        mSolarTermTextPaint.setColor(0xff489dff);
+        // 24节气颜色
+        mSolarTermTextPaint.setColor(ContextCompat.getColor(context, R.color.solarTermColor));
         mSolarTermTextPaint.setAntiAlias(true);
         mSolarTermTextPaint.setTextAlign(Paint.Align.CENTER);
 
@@ -110,16 +109,15 @@ public class CustomWeekView extends WeekView {
         mSchemeBasicPaint.setFakeBoldText(true);
         mSchemeBasicPaint.setColor(Color.WHITE);
 
-        mPointPaint.setAntiAlias(true);
-        mPointPaint.setStyle(Paint.Style.FILL);
-        mPointPaint.setTextAlign(Paint.Align.CENTER);
-        mPointPaint.setColor(Color.RED);
-
-
+        // 今天的背景颜色
         mCurrentDayPaint.setAntiAlias(true);
         mCurrentDayPaint.setStyle(Paint.Style.FILL);
         mCurrentDayPaint.setColor(ContextCompat.getColor(context, R.color.todayBgColor));
 
+        mPointPaint.setAntiAlias(true);
+        mPointPaint.setStyle(Paint.Style.FILL);
+        mPointPaint.setTextAlign(Paint.Align.CENTER);
+        mPointPaint.setColor(Color.RED);
 
         mCircleRadius = dipToPx(getContext(), 7);
 
@@ -130,8 +128,8 @@ public class CustomWeekView extends WeekView {
         Paint.FontMetrics metrics = mSchemeBasicPaint.getFontMetrics();
         mSchemeBaseLine = mCircleRadius - metrics.descent + (metrics.bottom - metrics.top) / 2 + dipToPx(getContext(), 1);
 
-    }
 
+    }
 
     @Override
     protected void onPreviewHook() {
@@ -141,18 +139,19 @@ public class CustomWeekView extends WeekView {
 
 
     @Override
-    protected boolean onDrawSelected(Canvas canvas, Calendar calendar, int x, boolean hasScheme) {
+    protected boolean onDrawSelected(Canvas canvas, Calendar calendar, int x, int y, boolean hasScheme) {
         int cx = x + mItemWidth / 2;
-        int cy = mItemHeight / 2;
+        int cy = y + mItemHeight / 2;
         canvas.drawCircle(cx, cy, mRadius, mSelectedPaint);
         return true;
     }
 
-
+    @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     @Override
-    protected void onDrawScheme(Canvas canvas, Calendar calendar, int x) {
+    protected void onDrawScheme(Canvas canvas, Calendar calendar, int x, int y) {
+        //计算
         float tx = x + mItemWidth - mPadding - mCircleRadius;
-        float ty = mSchemeBaseLine + mPadding;
+        float ty = y + mPadding + mSchemeBaseLine;
         float tw = mTextPaint.measureText(calendar.getScheme()) / 2;
         //画文字背景,这里y-2估计的，需要优化位置
         int color = calendar.getSchemeColor();
@@ -160,16 +159,16 @@ public class CustomWeekView extends WeekView {
             color = color - 0x99000000;
         }
         mPointPaint.setColor(color);
-        canvas.drawCircle(tx + tw , ty - tw / 2 -2, mPointRadius, mPointPaint);
+        canvas.drawCircle(tx + tw, ty - tw / 2 - 2, mPointRadius, mPointPaint);
         canvas.drawText(calendar.getScheme(), tx, ty, mTextPaint);
     }
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     @Override
-    protected void onDrawText(Canvas canvas, Calendar calendar, int x, boolean hasScheme, boolean isSelected) {
+    protected void onDrawText(Canvas canvas, Calendar calendar, int x, int y, boolean hasScheme, boolean isSelected) {
         int cx = x + mItemWidth / 2;
-        int cy = mItemHeight / 2;
-        int top = -mItemHeight / 6;
+        int cy = y + mItemHeight / 2;
+        int top = y - mItemHeight / 6;
         //画圆圈背景
         if (calendar.isCurrentDay() || isSelected) {
             canvas.drawCircle(cx, cy, mRadius, mCurrentDayPaint);
@@ -196,7 +195,7 @@ public class CustomWeekView extends WeekView {
         mCurMonthTextPaint.setColor(color != lunarColor ? color : sonarColor);
         mCurMonthLunarTextPaint.setColor(color);
         canvas.drawText(String.valueOf(calendar.getDay()), cx, mTextBaseLine + top, mCurMonthTextPaint);
-        canvas.drawText(calendar.getLunar(), cx, mTextBaseLine +  mItemHeight / 10, mCurMonthLunarTextPaint);
+        canvas.drawText(calendar.getLunar(), cx, mTextBaseLine + y + mItemHeight / 10, mCurMonthLunarTextPaint);
     }
 
     /**

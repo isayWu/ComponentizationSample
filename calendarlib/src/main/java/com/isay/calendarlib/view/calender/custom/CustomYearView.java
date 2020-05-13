@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.isay.calendarlib.view.custom;
+package com.isay.calendarlib.view.calender.custom;
 
 import android.content.Context;
 import android.graphics.Canvas;

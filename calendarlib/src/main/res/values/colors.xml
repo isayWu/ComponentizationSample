@@ -23,4 +23,5 @@
     <color name="restTvColor">#ffffff</color>
     <!--休文字背景颜色-->
     <color name="restBgColor">#63C082</color>
+
 </resources>
