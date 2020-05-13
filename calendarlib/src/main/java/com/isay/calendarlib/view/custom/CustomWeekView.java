@@ -155,17 +155,13 @@ public class CustomWeekView extends WeekView {
         float ty = mSchemeBaseLine + mPadding;
         float tw = mTextPaint.measureText(calendar.getScheme()) / 2;
         //画文字背景,这里y-2估计的，需要优化位置
-        mPointPaint.setColor(calendar.getSchemeColor());
-        canvas.drawCircle(tx + tw , ty - tw / 2 -2, mPointRadius, mPointPaint);
-        //画文字
-        canvas.drawText(calendar.getScheme(), tx, ty, mTextPaint);
-
-        boolean isSelected = isSelected(calendar);
-        if (isSelected) {
-            mPointPaint.setColor(Color.WHITE);
-        } else {
-            mPointPaint.setColor(Color.GRAY);
+        int color = calendar.getSchemeColor();
+        if (!calendar.isCurrentMonth()) {
+            color = color - 0x99000000;
         }
+        mPointPaint.setColor(color);
+        canvas.drawCircle(tx + tw , ty - tw / 2 -2, mPointRadius, mPointPaint);
+        canvas.drawText(calendar.getScheme(), tx, ty, mTextPaint);
     }
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
@@ -192,6 +188,11 @@ public class CustomWeekView extends WeekView {
         } else if (calendar.isWeekend()) {
             color = weekEndColor;
         }
+        //是否半透明
+        if (!calendar.isCurrentMonth()) {
+            color = color - 0x99000000;
+        }
+        //显示
         mCurMonthTextPaint.setColor(color != lunarColor ? color : sonarColor);
         mCurMonthLunarTextPaint.setColor(color);
         canvas.drawText(String.valueOf(calendar.getDay()), cx, mTextBaseLine + top, mCurMonthTextPaint);

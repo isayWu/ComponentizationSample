@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
 import com.isay.calendarlib.R;
+import com.isay.calendarlib.data.HolidayUtil;
 import com.isay.commonserverlib.listener.CalendarDateChangeListener;
 import com.isay.commonserverlib.listener.CalendarDateChangeListenerManager;
 
@@ -46,7 +47,26 @@ public class CalenderView extends FrameLayout implements CalendarView.OnMonthCha
         mOtherLayout = view.findViewById(R.id.calendar_other_view);
         mCalendarView.setOnMonthChangeListener(this);
         mCalendarView.setOnYearChangeListener(this);
+        initView();
     }
+
+
+    @Override
+    public void onMonthChange(int year, int month) {
+        for (CalendarDateChangeListener listener : CalendarDateChangeListenerManager.getInstance().getListChangeListener()) {
+            listener.onMonthChange(year, month);
+        }
+        schemeCalendar(year, month);
+    }
+
+    @Override
+    public void onYearChange(int year) {
+        for (CalendarDateChangeListener listener : CalendarDateChangeListenerManager.getInstance().getListChangeListener()) {
+            listener.onYearChange(year);
+        }
+        schemeCalendar(year, mCalendarView.getCurMonth());
+    }
+
 
     public CalenderView setOtherView(View view) {
         mOtherLayout.addView(view);
@@ -58,29 +78,47 @@ public class CalenderView extends FrameLayout implements CalendarView.OnMonthCha
         return this;
     }
 
-    @Override
-    public void onMonthChange(int year, int month) {
-        for (CalendarDateChangeListener listener : CalendarDateChangeListenerManager.getInstance().getListChangeListener()) {
-            listener.onMonthChange(year, month);
-        }
+    /**
+     * 初始化view
+     */
+    private void initView() {
+        schemeCalendar(mCalendarView.getCurYear(), mCalendarView.getCurMonth());
+    }
 
-
+    /**
+     * 标记班休等
+     */
+    private void schemeCalendar(int year, int month) {
+        long t1 = System.currentTimeMillis();
+        System.out.println(">>>isayt1: " + t1);
         Map<String, Calendar> map = new HashMap<>();
-        map.put(getSchemeCalendar(year, month, 3, 0xFF40db25, "班").toString(),
-                getSchemeCalendar(year, month, 3, 0xFF40db25, "班"));
-        map.put(getSchemeCalendar(year, month, 6, 0xFFe69138, "休").toString(),
-                getSchemeCalendar(year, month, 6, 0xFFe69138, "休"));
+        for (int i = 1; i < 31; i++) {
+            //找出班
+            if (HolidayUtil.isWork(year, month, i)) {
+                Calendar calendar = getSchemeCalendar(year, month, i, 0xFF40db25, "班");
+                map.put(calendar.toString(), calendar);
+            }
+            //找出休
+            if (HolidayUtil.isReset(year, month, i)) {
+                Calendar calendar = getSchemeCalendar(year, month, i, 0xFFe69138, "休");
+                map.put(calendar.toString(), calendar);
+            }
+        }
         //此方法在巨大的数据量上不影响遍历性能，推荐使用
         mCalendarView.setSchemeDate(map);
+        System.out.println(">>>isayt2---------: " + (System.currentTimeMillis() -t1));
     }
 
-    @Override
-    public void onYearChange(int year) {
-        for (CalendarDateChangeListener listener : CalendarDateChangeListenerManager.getInstance().getListChangeListener()) {
-            listener.onYearChange(year);
-        }
-    }
-
+    /**
+     * 标记班休等颜色信息
+     *
+     * @param year
+     * @param month
+     * @param day
+     * @param color
+     * @param text
+     * @return
+     */
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
         Calendar calendar = new Calendar();
         calendar.setYear(year);

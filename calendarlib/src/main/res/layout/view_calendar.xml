@@ -20,7 +20,7 @@
         app:max_year="2020"
         app:min_year="2004"
         app:month_view="com.isay.calendarlib.view.custom.CustomMonthView"
-        app:month_view_show_mode="mode_only_current"
+        app:month_view_show_mode="mode_all"
         app:scheme_text="休"
         app:week_background="#fff"
         app:week_start_with="sun"
