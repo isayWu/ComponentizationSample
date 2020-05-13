@@ -89,24 +89,47 @@ public class CalenderView extends FrameLayout implements CalendarView.OnMonthCha
      * 标记班休等
      */
     private void schemeCalendar(int year, int month) {
-        long t1 = System.currentTimeMillis();
-        System.out.println(">>>isayt1: " + t1);
+        int workBg = ContextCompat.getColor(getContext(), R.color.workBgColor);
+        int resetBg = ContextCompat.getColor(getContext(), R.color.restBgColor);
         Map<String, Calendar> map = new HashMap<>();
         for (int i = 1; i < 31; i++) {
             //找出班
             if (HolidayUtil.isWork(year, month, i)) {
-                Calendar calendar = getSchemeCalendar(year, month, i, 0xFF40db25, "班");
+                Calendar calendar = getSchemeCalendar(year, month, i, workBg, "班");
                 map.put(calendar.toString(), calendar);
             }
             //找出休
             if (HolidayUtil.isReset(year, month, i)) {
-                Calendar calendar = getSchemeCalendar(year, month, i, 0xFFe69138, "休");
+                Calendar calendar = getSchemeCalendar(year, month, i, resetBg, "休");
                 map.put(calendar.toString(), calendar);
+            }
+            //找出前一个月的班
+            if (i > 20) {
+                int m = (month <= 1) ? 12 : month - 1;
+                if (HolidayUtil.isWork(year, m, i)) {
+                    Calendar calendar = getSchemeCalendar(year, m, i, workBg, "班");
+                    map.put(calendar.toString(), calendar);
+                }
+                if (HolidayUtil.isReset(year, m, i)) {
+                    Calendar calendar = getSchemeCalendar(year, m, i, resetBg, "休");
+                    map.put(calendar.toString(), calendar);
+                }
+            }
+            //找出后一个月的班
+            if (i < 8) {
+                int m = (month >= 12) ? 1 : month + 1;
+                if (HolidayUtil.isWork(year, m, i)) {
+                    Calendar calendar = getSchemeCalendar(year, m, i, workBg, "班");
+                    map.put(calendar.toString(), calendar);
+                }
+                if (HolidayUtil.isReset(year, m, i)) {
+                    Calendar calendar = getSchemeCalendar(year, m, i, resetBg, "休");
+                    map.put(calendar.toString(), calendar);
+                }
             }
         }
         //此方法在巨大的数据量上不影响遍历性能，推荐使用
         mCalendarView.setSchemeDate(map);
-        System.out.println(">>>isayt2---------: " + (System.currentTimeMillis() -t1));
     }
 
     /**

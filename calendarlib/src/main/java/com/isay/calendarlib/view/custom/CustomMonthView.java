@@ -149,7 +149,6 @@ public class CustomMonthView extends MonthView {
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     @Override
     protected void onDrawScheme(Canvas canvas, Calendar calendar, int x, int y) {
-
         //计算
         float tx = x + mItemWidth - mPadding - mCircleRadius;
         float ty = y + mPadding + mSchemeBaseLine;
