@@ -24,7 +24,6 @@
         android:layout_marginTop="5dp"
         android:text="第14周 周六"
         android:textColor="#ff666666"
-        android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendar_lunar_tv_luna" />
 
@@ -32,8 +31,8 @@
         android:id="@+id/calendar_lunar_holiday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="·清明节 ·国庆节 ·三九第一天"
+        android:layout_marginTop="2dp"
+        android:text="国庆节 ·三九第一天"
         android:textColor="#ff999999"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"

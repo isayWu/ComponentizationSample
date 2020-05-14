@@ -12,10 +12,14 @@ package com.isay.commonserverlib.listener;
  *
  * @author wucongyi
  */
-public interface CalendarDateChangeListener {
+public interface CalendarChangeListener {
 
     public void onMonthChange(int year, int month);
 
     public void onYearChange(int year);
+
+    public void onCalendarOutOfRange(int year, int month, int day);
+
+    public void onCalendarSelect(boolean isClick, int year, int month, int day, int lunaMonth, int lunaDay, String lunaDayStr);
 
 }

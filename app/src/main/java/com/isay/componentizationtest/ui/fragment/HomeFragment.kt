@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.isay.commonserverlib.base.BaseFragment
-import com.isay.commonserverlib.listener.CalendarDateChangeListener
+import com.isay.commonserverlib.listener.CalendarChangeListener
+import com.isay.commonserverlib.listener.CalendarDateChangeListenerManager
 import com.isay.commonserverlib.plug.PlugManager
 import com.isay.componentizationtest.R
 import com.isay.componentizationtest.ui.contract.HomeContract
 import com.isay.componentizationtest.ui.contract.HomePresenterImpl
+import kotlinx.android.synthetic.main.view_home_other.*
 import kotlinx.android.synthetic.main.view_home_title.*
 
 /**
@@ -50,9 +52,9 @@ class HomeFragment : BaseFragment<HomePresenterImpl?>(), HomeContract.IView {
         var calendarView: View? =
             PlugManager.getInstance().calendarPlugRules.getCalendarView(
                 context,
-                contentView,
-                mCalendarDateChangeListener
+                contentView
             )
+        CalendarDateChangeListenerManager.getInstance().addChangeListener(mCalendarChangeListener)
         if (calendarView != null) {
             calenderLayout.addView(calendarView)
         }
@@ -61,13 +63,20 @@ class HomeFragment : BaseFragment<HomePresenterImpl?>(), HomeContract.IView {
     /**
      * 期间变化回调监听
      */
-    private val mCalendarDateChangeListener: CalendarDateChangeListener =
-        object : CalendarDateChangeListener {
-            override fun onMonthChange(year: Int, month: Int) {
-                app_home_head_tv_date.text = "$year 年 $month 月"
-            }
-
-            override fun onYearChange(year: Int) {}
+    private val mCalendarChangeListener: CalendarChangeListener = object : CalendarChangeListener {
+        override fun onMonthChange(year: Int, month: Int) {
+            app_home_head_tv_date.text = "${year}年${month}月"
         }
+
+        override fun onYearChange(year: Int) {}
+
+        override fun onCalendarSelect(isClick: Boolean, year: Int, month: Int, day: Int,lunaMonth:Int,lunaDay:Int,luna:String) {
+            home_luna_view.setDate(year,month,day,lunaMonth,lunaDay,luna)
+        }
+
+        override fun onCalendarOutOfRange(year: Int, month: Int, day: Int) {
+
+        }
+    }
 
 }

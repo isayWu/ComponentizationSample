@@ -19,7 +19,7 @@ public class CalendarDateChangeListenerManager {
 
     private static CalendarDateChangeListenerManager mInstance;
 
-    private List<CalendarDateChangeListener> mListChangeListener = new ArrayList<>();
+    private List<CalendarChangeListener> mListChangeListener = new ArrayList<>();
 
     public static CalendarDateChangeListenerManager getInstance() {
         if (mInstance == null) {
@@ -28,11 +28,11 @@ public class CalendarDateChangeListenerManager {
         return mInstance;
     }
 
-    public void setListChangeListener(CalendarDateChangeListener l) {
+    public void addChangeListener(CalendarChangeListener l) {
         this.mListChangeListener.add(l);
     }
 
-    public List<CalendarDateChangeListener> getListChangeListener() {
+    public List<CalendarChangeListener> getListChangeListener() {
         return mListChangeListener;
     }
 

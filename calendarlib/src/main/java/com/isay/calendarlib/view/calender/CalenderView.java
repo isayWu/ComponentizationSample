@@ -13,7 +13,7 @@ import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
 import com.isay.calendarlib.R;
 import com.isay.calendarlib.data.HolidayUtil;
-import com.isay.commonserverlib.listener.CalendarDateChangeListener;
+import com.isay.commonserverlib.listener.CalendarChangeListener;
 import com.isay.commonserverlib.listener.CalendarDateChangeListenerManager;
 
 import java.util.HashMap;
@@ -31,7 +31,8 @@ import java.util.Map;
  *
  * @author wucongyi
  */
-public class CalenderView extends FrameLayout implements CalendarView.OnMonthChangeListener, CalendarView.OnYearChangeListener {
+public class CalenderView extends FrameLayout implements CalendarView.OnMonthChangeListener,
+        CalendarView.OnYearChangeListener, CalendarView.OnCalendarSelectListener {
 
     private CalendarView mCalendarView;
     private FrameLayout mOtherLayout;
@@ -47,13 +48,25 @@ public class CalenderView extends FrameLayout implements CalendarView.OnMonthCha
         mOtherLayout = view.findViewById(R.id.calendar_other_view);
         mCalendarView.setOnMonthChangeListener(this);
         mCalendarView.setOnYearChangeListener(this);
+        mCalendarView.setOnCalendarSelectListener(this);
         initView();
+    }
+
+    /**
+     * 设置其它view包含在日历view内部
+     *
+     * @param view
+     * @return
+     */
+    public CalenderView setOtherView(View view) {
+        mOtherLayout.addView(view);
+        return this;
     }
 
 
     @Override
     public void onMonthChange(int year, int month) {
-        for (CalendarDateChangeListener listener : CalendarDateChangeListenerManager.getInstance().getListChangeListener()) {
+        for (CalendarChangeListener listener : CalendarDateChangeListenerManager.getInstance().getListChangeListener()) {
             listener.onMonthChange(year, month);
         }
         schemeCalendar(year, month);
@@ -61,22 +74,28 @@ public class CalenderView extends FrameLayout implements CalendarView.OnMonthCha
 
     @Override
     public void onYearChange(int year) {
-        for (CalendarDateChangeListener listener : CalendarDateChangeListenerManager.getInstance().getListChangeListener()) {
+        for (CalendarChangeListener listener : CalendarDateChangeListenerManager.getInstance().getListChangeListener()) {
             listener.onYearChange(year);
         }
         schemeCalendar(year, mCalendarView.getCurMonth());
     }
 
 
-    public CalenderView setOtherView(View view) {
-        mOtherLayout.addView(view);
-        return this;
+    @Override
+    public void onCalendarOutOfRange(Calendar calendar) {
+        for (CalendarChangeListener listener : CalendarDateChangeListenerManager.getInstance().getListChangeListener()) {
+            listener.onCalendarOutOfRange(calendar.getYear(), calendar.getMonth(), calendar.getDay());
+        }
     }
 
-    public CalenderView setListener(CalendarDateChangeListener l) {
-        CalendarDateChangeListenerManager.getInstance().setListChangeListener(l);
-        return this;
+    @Override
+    public void onCalendarSelect(Calendar calendar, boolean isClick) {
+        for (CalendarChangeListener listener : CalendarDateChangeListenerManager.getInstance().getListChangeListener()) {
+            listener.onCalendarSelect(isClick, calendar.getYear(), calendar.getMonth(), calendar.getDay(),
+                    calendar.getLunarCalendar().getMonth(), calendar.getLunarCalendar().getDay(), calendar.getLunar());
+        }
     }
+
 
     /**
      * 初始化view

@@ -3,7 +3,6 @@ package com.isay.calendarlib.plug
 import android.content.Context
 import android.view.View
 import com.isay.calendarlib.view.calender.CalenderView
-import com.isay.commonserverlib.listener.CalendarDateChangeListener
 import com.isay.commonserverlib.plug.IPlugRulesCalendar
 
 /**
@@ -24,11 +23,10 @@ class CalendarPlugImpl : IPlugRulesCalendar {
      */
     override fun getCalendarView(
         context: Context?,
-        otherView: View?,
-        listener: CalendarDateChangeListener?
+        otherView: View?
     ): View {
         var calendar = CalenderView(context)
-        calendar.setOtherView(otherView).setListener(listener)
+        calendar.setOtherView(otherView)
         return calendar
     }
 
