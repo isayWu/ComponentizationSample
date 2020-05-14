@@ -13,6 +13,7 @@ import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarView;
 import com.isay.calendarlib.R;
 import com.isay.calendarlib.data.HolidayUtil;
+import com.isay.commonserverlib.bean.CalendarInfo;
 import com.isay.commonserverlib.listener.CalendarChangeListener;
 import com.isay.commonserverlib.listener.CalendarDateChangeListenerManager;
 
@@ -90,9 +91,18 @@ public class CalenderView extends FrameLayout implements CalendarView.OnMonthCha
 
     @Override
     public void onCalendarSelect(Calendar calendar, boolean isClick) {
+        CalendarInfo info = new CalendarInfo();
+        info.setYear(calendar.getYear())
+                .setMonth(calendar.getMonth())
+                .setLunaMonth(calendar.getLunarCalendar().getMonth())
+                .setDay(calendar.getDay())
+                .setLunaDayStr(calendar.getLunarCalendar().getLunar())
+                .setWeek(calendar.getWeek())
+                .setHoliday(calendar.getGregorianFestival())
+                .setLunaHoliday(calendar.getTraditionFestival())
+                .setSolarItem(calendar.getSolarTerm());
         for (CalendarChangeListener listener : CalendarDateChangeListenerManager.getInstance().getListChangeListener()) {
-            listener.onCalendarSelect(isClick, calendar.getYear(), calendar.getMonth(), calendar.getDay(),
-                    calendar.getLunarCalendar().getMonth(), calendar.getLunarCalendar().getDay(), calendar.getLunar());
+            listener.onCalendarSelect(info);
         }
     }
 

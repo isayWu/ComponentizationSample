@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.isay.commonserverlib.bean.CalendarInfo
 import com.isay.componentizationtest.R
 import kotlinx.android.synthetic.main.view_huangli.view.*
 
@@ -34,31 +35,15 @@ class LunaView @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.view_huangli, this)
     }
 
-    fun setDate(
-        year: Int,
-        month: Int,
-        day: Int,
-        lunaMonth: Int,
-        lunaDay: Int,
-        luna: String
-    ): LunaView {
-        calendar_lunar_tv_luna!!.text = "${lunaMonth}月$luna"
+    /**
+     * 显示农历数据
+     */
+    fun setDate(info: CalendarInfo): LunaView {
+        calendar_lunar_tv_luna!!.text = "${info.lunaMonth}月${info.lunaDayStr}${info.solarItem}"
+        calendar_lunar_week!!.text = "星期${info.week}"
+        calendar_lunar_holiday!!.text = "${info.holiday} ·${info.lunaHoliday}"
         return this
     }
 
-    fun showLuna(s: String?): LunaView {
-        calendar_lunar_tv_luna!!.text = s
-        return this
-    }
-
-    fun showWeek(s: String?): LunaView {
-        calendar_lunar_week!!.text = s
-        return this
-    }
-
-    fun showHoliday(s: String?): LunaView {
-        calendar_lunar_holiday!!.text = s
-        return this
-    }
 
 }

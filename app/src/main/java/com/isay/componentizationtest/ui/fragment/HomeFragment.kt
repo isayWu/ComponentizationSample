@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.isay.commonserverlib.base.BaseFragment
+import com.isay.commonserverlib.bean.CalendarInfo
 import com.isay.commonserverlib.listener.CalendarChangeListener
 import com.isay.commonserverlib.listener.CalendarDateChangeListenerManager
 import com.isay.commonserverlib.plug.PlugManager
@@ -70,8 +71,8 @@ class HomeFragment : BaseFragment<HomePresenterImpl?>(), HomeContract.IView {
 
         override fun onYearChange(year: Int) {}
 
-        override fun onCalendarSelect(isClick: Boolean, year: Int, month: Int, day: Int,lunaMonth:Int,lunaDay:Int,luna:String) {
-            home_luna_view.setDate(year,month,day,lunaMonth,lunaDay,luna)
+        override fun onCalendarSelect(info: CalendarInfo) {
+            home_luna_view.setDate(info)
         }
 
         override fun onCalendarOutOfRange(year: Int, month: Int, day: Int) {

@@ -1,5 +1,7 @@
 package com.isay.commonserverlib.listener;
 
+import com.isay.commonserverlib.bean.CalendarInfo;
+
 /**
  * Desc:
  * <p>
@@ -20,6 +22,6 @@ public interface CalendarChangeListener {
 
     public void onCalendarOutOfRange(int year, int month, int day);
 
-    public void onCalendarSelect(boolean isClick, int year, int month, int day, int lunaMonth, int lunaDay, String lunaDayStr);
+    public void onCalendarSelect(CalendarInfo info);
 
 }
